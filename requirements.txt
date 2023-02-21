@@ -47,4 +47,3 @@ twilio==7.15.0
 tzdata==2022.1
 urllib3==1.26.11
 whitenoise==6.2.0
-mysqlclient
