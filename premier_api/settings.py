@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import environ
 import os
-import dj_database_url
 from decouple import config
 
 
@@ -97,8 +96,16 @@ WSGI_APPLICATION = 'premier_api.wsgi.application'
 #}
 
 DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': '5432'
     }
+}
+
 
 
 # Password validation
