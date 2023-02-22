@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 import os
 from decouple import config
+import dj_database_url
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,8 +38,8 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '20302f396809a5'
-EMAIL_HOST_PASSWORD = '88cc40daee6dd4'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = '2525'
 
 # Application definition
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    #"whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'premier_api.urls'
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'premier_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,14 +98,16 @@ WSGI_APPLICATION = 'premier_api.wsgi.application'
 #}
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_HOST'),
-        'PORT': '5432'
-    }
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        #{
+        
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.environ.get('DATABASE_NAME'),
+        #'USER': os.environ.get('DATABASE_USER'),
+        #'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        #'HOST': os.environ.get('DATABASE_HOST'),
+        #'PORT': '5432'
+    #}
 }
 
 
@@ -146,10 +149,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 # STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
