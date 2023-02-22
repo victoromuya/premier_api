@@ -98,16 +98,16 @@ WSGI_APPLICATION = 'premier_api.wsgi.application'
 #}
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
-        #{
+    'default': #dj_database_url.parse(os.environ.get("DATABASE_URL")),
+        {
         
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': os.environ.get('DATABASE_NAME'),
-        #'USER': os.environ.get('DATABASE_USER'),
-        #'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        #'HOST': os.environ.get('DATABASE_HOST'),
-        #'PORT': '5432'
-    #}
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': '5432'
+    }
 }
 
 
